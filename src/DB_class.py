@@ -12,7 +12,7 @@ class DBManager:
 
     def get_companies_and_vacancies_count(self):
         """
-        Функция для получения списка всех компаний
+        Метод для получения списка всех компаний
         и количество вакансий у каждой компании.
         """
 
@@ -29,7 +29,7 @@ class DBManager:
         return self.cur.fetchall()
 
     def get_all_vacancies(self):
-        """Функция для списка всех вакансий с указанием названия компании,
+        """Метод для списка всех вакансий с указанием названия компании,
         названия вакансии и зарплаты с ссылкой на вакансию."""
 
         self.cur.execute(
@@ -46,7 +46,7 @@ class DBManager:
         return self.cur.fetchall()
 
     def get_avg_salary(self):
-        """Функция для получения средней зарплаты по вакансиям."""
+        """Метод для получения средней зарплаты по вакансиям."""
 
         self.cur.execute(
             """
@@ -61,7 +61,7 @@ class DBManager:
         return formatted_avg_salary
 
     def get_vacancies_with_higher_salary(self):
-        """Функция для получения списка всех вакансий,
+        """Метод для получения списка всех вакансий,
         у которых зарплата выше средней по всем вакансиям."""
 
         avg_salary = self.get_avg_salary()[0][0]
@@ -77,7 +77,7 @@ class DBManager:
         return self.cur.fetchall()
 
     def get_vacancies_with_keyword(self, keyword):
-        """Функция для получения списка всех вакансий,
+        """Метод для получения списка всех вакансий,
         в названии которых содержатся переданные в метод слова."""
 
         keyword = f"%{keyword.lower()}%"
@@ -94,7 +94,7 @@ class DBManager:
 
     def get_vacancies_with_average_salary(self):
         """
-        Функция для получения списка всех вакансий,
+        Метод для получения списка всех вакансий,
         у которых зарплата выше средней по всем вакансиям.
         """
 
@@ -107,7 +107,7 @@ class DBManager:
 
     def get_vacancies_by_word(self, keyword):
         """
-        Функция для получения списка всех вакансий,
+        Метод для получения списка всех вакансий,
         в названии которых содержатся переданные в метод слова, например: python.
         """
 
