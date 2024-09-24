@@ -41,3 +41,30 @@ def create_database(database_name: str, params):
 
     conn.commit()
     conn.close()
+
+def save_data_to_database(data_employer: list[dict[str, Any]], data_vacancies: list[dict[str, Any]],
+                          database_name: str, params: dict):
+    """Функция для сохранения данных о каналах и видео в базу данных."""
+
+    conn = psycopg2.connect(dbname=database_name, **params)
+
+    with conn.cursor() as cur:
+        for employer in data_employer:
+            cur.execute("""
+                INSERT INTO employers (employer_id, employer_name, employer_area, url, open_vacancies)
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                        (employer['id'], employer['name'], employer['area']['name'], employer['alternate_url'],
+                         employer['open_vacancies']))
+        for vacancy in data_vacancies:  # 'vacancy', не 'vacancies'
+            salary_from = vacancy['salary']['from'] if vacancy['salary'] and vacancy['salary'][
+                'from'] is not None else 0
+            cur.execute("""
+                    INSERT INTO vacancies (vacancy_id, vacancy_name, vacancy_area, salary, employer_id, vacancy_url)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                    """,
+                        (vacancy.get('id'), vacancy['name'], vacancy['area']['name'], salary_from,
+                         vacancy['employer']['id'], vacancy['alternate_url']))
+
+    conn.commit()
+    conn.close()
