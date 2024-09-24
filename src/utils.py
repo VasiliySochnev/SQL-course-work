@@ -1,10 +1,10 @@
 from typing import Any
+
 import psycopg2
 
 
 def create_database(database_name: str, params):
-    """Функция для создания базы данных и таблиц,
-    чтобы сохранять данные о каналах и видео."""
+    """Функция для создания базы данных и таблиц."""
 
     conn = psycopg2.connect(dbname="postgres", **params)
     conn.autocommit = True
@@ -54,7 +54,7 @@ def save_data_to_database(
     database_name: str,
     params: dict,
 ):
-    """Функция для сохранения данных о каналах и видео в базу данных."""
+    """Функция для сохранения вакансий и работадателей в базу данных."""
 
     conn = psycopg2.connect(dbname=database_name, **params)
 
